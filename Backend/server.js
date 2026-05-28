@@ -12,6 +12,10 @@ const port = process.env.PORT
 
 app.use('/api/venue', venueRouter)
 
+
+dbConnect()
+const port = process.env.PORT
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
