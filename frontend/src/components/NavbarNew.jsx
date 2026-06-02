@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import Button from "./Button"
+import Button from "./ButtonNew"
 
 export default function Navbar() {
   const isLoggedIn = false;
