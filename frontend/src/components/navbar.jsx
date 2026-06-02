@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import Button from "./button"
+import Button from "./Button"
 
 export default function Navbar() {
   const isLoggedIn = false;
@@ -70,7 +70,7 @@ export default function Navbar() {
 
         {!isLoggedIn ? (
           <>
-            <Button buttonV="p">
+            <Button buttonV="primary">
               Login
             </Button>
 

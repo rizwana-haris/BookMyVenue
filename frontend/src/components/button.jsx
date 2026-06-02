@@ -8,7 +8,7 @@ export default function Button({
     "px-4 py-2 rounded-lg font-medium transition duration-200";
 
   const variants = {
-    p:
+    primary:
       "bg-[#EC3946] text-white hover:opacity-70",
 
     outline:
