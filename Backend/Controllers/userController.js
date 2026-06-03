@@ -4,7 +4,7 @@ const { generateToken } = require("../utils/jwt");
 
 //register user
 const registerUser = async (req, res) => {
-    console.log("login route hit");
+    
   try {
     const { name, email, password, phone } = req.body;
 
