@@ -82,4 +82,13 @@ const files = req.files;
     })
 })
 
-module.exports=addVenue
+const listVenues = asyncHandler(async(req,res)=>{
+    console.log("hi")
+    const venues=await Venue.find({})
+    console.log(venues)
+    return res.status(StatusCode.OK).json({
+        status: "success",
+        venues
+    })
+})
+module.exports={addVenue,listVenues}

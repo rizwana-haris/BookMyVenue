@@ -66,7 +66,10 @@ const venueSchema = new mongoose.Schema({
         coordinates: { type: [Number] }
     }
 
-})
+},
+    {
+        timestamps: true,
+    })
 venueSchema.index({ location: '2dsphere' });
 
 const Venue = mongoose.model('Venue', venueSchema);
