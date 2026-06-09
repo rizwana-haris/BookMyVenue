@@ -65,6 +65,7 @@ export default function Signup() {
       <input
         type="text"
         placeholder="Full Name"
+        required
         value={name}
         onChange={(e) => setName(e.target.value)}
         className="border p-2 rounded w-80 mb-4"
@@ -73,6 +74,7 @@ export default function Signup() {
       <input
         type="email"
         placeholder="Email"
+        required
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className="border p-2 rounded w-80 mb-4"
@@ -81,6 +83,7 @@ export default function Signup() {
       <input
         type="password"
         placeholder="Password"
+        required
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="border p-2 rounded w-80 mb-4"
@@ -89,6 +92,7 @@ export default function Signup() {
       <input
         type="password"
         placeholder="Confirm Password"
+        required
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         className="border p-2 rounded w-80 mb-4"
