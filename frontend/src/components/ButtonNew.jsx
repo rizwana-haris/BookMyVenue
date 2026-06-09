@@ -2,6 +2,7 @@ export default function Button({
   children,
   buttonV = "primary",
   onClick,
+  type = "button",
 }) {
 
   const baseStyle =
@@ -18,6 +19,7 @@ export default function Button({
   return (
     <button
       onClick={onClick}
+      type={type}
       className={`${baseStyle} ${variants[buttonV]}`}
     >
       {children}
