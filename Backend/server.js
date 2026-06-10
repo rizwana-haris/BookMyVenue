@@ -17,9 +17,9 @@ const categoryRouter = require('./Routes/categoryRoutes')
 const userRoutes = require('./Routes/userRoutes');
 
 
-app.use(express.json());
-
 dbConnect()
+
+app.use(express.json());
 
 app.use('/api/venue', venueRouter)
 app.use('/api/category',categoryRouter)
