@@ -12,7 +12,7 @@ const Cards = () => {
     return (
         <>
             <Row>
-                {venues.map((v) => (
+                {venues?.map((v) => (
                     <Col>
                         <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={v.image[0]} />
