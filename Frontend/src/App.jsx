@@ -1,25 +1,19 @@
-import AddVenue from "./Pages/Owner/AddVenue";
-import { Outlet } from "react-router";
-import { Route, createRoutesFromElements, createBrowserRouter } from "react-router";
-import AddCategory from "./Pages/Admin/AddCategory";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/NavbarNew";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Signup from "./pages/Signup";
 
-export const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<App />}>
-      <Route path="/venue/add" element={<AddVenue />} />
-      <Route path="/category/add" element={<AddCategory />} />
-    </Route >
-  ))
-
-function App() {
-
+export default function App() {
   return (
-    <>
-      <main>
-        <Outlet />
-      </main>
-    </>
-  )
-}
+    <div>
+      <Navbar />
 
-export default App
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
+    </div>
+  );
+}
