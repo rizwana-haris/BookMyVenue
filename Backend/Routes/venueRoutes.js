@@ -1,5 +1,5 @@
-const express=require('express')
-const addVenue = require('../Controllers/venueController')
-const router = express.Router()
+// const express=require('express')
+// const addVenue = require('../Controllers/venueController')
+// const router = express.Router()
 
-router.route('/add').post(addVenue)
+// router.route('/add').post(addVenue)

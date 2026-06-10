@@ -6,10 +6,15 @@ const { generateToken } = require("../utils/jwt");
 const registerUser = async (req, res) => {
     
   try {
-    const { name, email, password, phone } = req.body;
+    const { name, email, password, role } = req.body;
 
-    if (!name || !email || !password || !phone) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const allowedRoles =["user","venue_owner"];
+    if(!allowedRoles.includes(role)){
+      return res.status(400).json({ message: "Invalid role" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -18,11 +23,10 @@ const registerUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      phone,
-      role: "user",
+      role,
     });
 
-    const token = generateToken(user._id);
+    const token = generateToken(user);
 
     return res.status(201).json({
       message: "User registered successfully",
@@ -67,7 +71,7 @@ const loginUser = async (req, res) => {
         return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const token = generateToken(user._id);
+    const token = generateToken(user);
 
     return res.status(200).json({
       message: "User login successful",

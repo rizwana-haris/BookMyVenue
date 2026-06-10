@@ -11,7 +11,6 @@ dbConnect()
 
 app.use(express.json());
 
-app.use('/api/venue', venueRouter)
 app.use('/api/users',userRoutes);
 
 const port = process.env.PORT;
