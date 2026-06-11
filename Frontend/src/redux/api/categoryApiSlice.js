@@ -1,6 +1,7 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
 import { BASE_URL, CATEGORY_URL } from "../../constants/constant";
 export const categoryApi = createApi({
+    reducerPath: "categoryApi",
     baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
     endpoints: (builder) => ({
         addCategory: builder.mutation({

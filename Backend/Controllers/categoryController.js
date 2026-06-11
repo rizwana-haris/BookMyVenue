@@ -23,7 +23,6 @@ const addCategory = asyncHandler(async (req, res) => {
 
 const listCategories = asyncHandler(async (req, res) => {
     const categories = await Category.find({}).sort({ createdAt: -1 });
-    console.log(categories)
     return res.status(StatusCode.OK).json({
         status: "success",
         categories
