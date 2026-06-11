@@ -8,6 +8,7 @@ import AddVenue from "./pages/owner/AddVenue";
 import { Outlet } from "react-router";
 import AddCategory from "./pages/admin/AddCategory";
 import VenueLists from "./pages/user/VenueLists";
+import VenueDetails from "./pages/user/VenueDetails";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ export const router = createBrowserRouter(
       <Route path="/venue/add" element={<AddVenue />} />
       <Route path="/category/add" element={<AddCategory />} />
       <Route path="/venues" element={<VenueLists />} />
+       <Route path="/venue-details" element={<VenueDetails />} />
 
     </Route >
   ))
@@ -27,6 +29,7 @@ function App() {
   return (
     <div>
       <Navbar />
+
       <Outlet />
     </div>
   );
