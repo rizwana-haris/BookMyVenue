@@ -3,6 +3,7 @@ import Navbar from "./components/NavbarNew";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
+import VenueDetails from "./pages/VenueDetails";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/venue-details" element={<VenueDetails />} />
       </Routes>
     </div>
   );
