@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import Button from "./ButtonNew"
+import { Link } from "react-router-dom"
 
 export default function Navbar() {
   const isLoggedIn = false;
@@ -22,7 +23,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="w-full bg-[#FDFFF0] shadow-md px-6 py-4 flex items-center justify-between">
+    <nav className="w-full bg-[#FDFFF0] shadow-md px-20 py-4 flex items-center justify-between">
 
       {/* Left Section */}
       <div className="flex items-center gap-3">
@@ -33,7 +34,7 @@ export default function Navbar() {
         </div>
 
         {/* Website Name */}
-        <h1 className="text-2xl font-bold text-[#EC3946]">
+        <h1 className="!text-3xl font-bold text-[#EC3946]">
           BookMyVenue
         </h1>
       </div>
@@ -70,13 +71,23 @@ export default function Navbar() {
 
         {!isLoggedIn ? (
           <>
-            <Button buttonV="primary">
-              Login
-            </Button>
+          <Link to="/login">
 
-            <Button buttonV="outline">
-              Sign Up
-            </Button>
+              <Button buttonV="primary">
+                Login
+              </Button>
+          
+          </Link>
+
+            <Link to="/signup">
+              <Button buttonV="outline">
+                Sign Up
+              </Button>
+            
+             </Link>
+            
+
+           
           </>
         ) : (
           <div className="w-10 h-10 bg-gray-300 rounded-full"></div>
