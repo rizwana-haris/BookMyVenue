@@ -395,7 +395,7 @@ const AddVenue = () => {
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button class='bg-primary my-5 text-light' type='submit'>Submit</Button>
+                    <Button className='bg-primary my-5 text-light' type='submit'>Submit</Button>
                 </Form>
             </div>
         </>
