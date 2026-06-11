@@ -1,6 +1,7 @@
 
 const { verifyToken } = require('../utils/jwt');
 
+//Authentication
 const verifyTokenHandler =  (req,res,next) =>{
     let token = req.headers.authorization;
 
@@ -20,4 +21,21 @@ const verifyTokenHandler =  (req,res,next) =>{
     }
 }
 
-module.exports = verifyTokenHandler;
+//Authorization
+const verifyRoles = (...roles) => {
+    return (req,res,next) =>{
+        if(!req.user){
+            return res.status(401).json({message:'Unauthorized'});
+        }
+        const userRole = req.user.role;
+        if(!roles.includes(userRole)){
+            return res.status(403).json({message:'You dont have permission'}); 
+        }
+        next();
+    }
+}
+
+module.exports = {
+    verifyTokenHandler,
+    verifyRoles
+}

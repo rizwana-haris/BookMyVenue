@@ -1,6 +1,6 @@
-const asyncHandler = require('express-async-handler');
-const StatusCode = require('../statusCode');
-const Venue = require('../Models/venueModel');
+// const asyncHandler = require('express-async-handler');
+// const StatusCode = require('../statusCode');
+// const Venue = require('../Models/venueModel');
 
 const addVenue = asyncHandler(async (req, res) => {
     const { name, description, category,price, capacity, phone,amenities,city,district,state,zipcode,longitude,latitude } = req.body
@@ -82,4 +82,4 @@ const files = req.files;
     })
 })
 
-module.exports=addVenue
+// module.exports=addVenue
