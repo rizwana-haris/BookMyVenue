@@ -1,25 +1,19 @@
-import Button from "../components/ButtonNew";
+import { useParams } from "react-router-dom";
+import Button from "../../components/ButtonNew";
+import { useVenueDetailQuery } from "../../redux/api/venueApiSlice";
 
 export default function VenueDetails() {
-    const venue = {
-        name: "Grand Convention Hall",
-        location: "Trivandrum",
-        price: "₹5000/day",
-        capacity: "200 People",
-        images: [
-            "/images/hall0.jpg",
-            "/images/hall1.jpg",
-            "/images/hall2.jpg",
-        ],
-        facilities: ["Parking", "AC Hall", "WiFi", "Stage", "Catering Support"],
-        description:
-            "A premium venue suitable for weddings, corporate events, and parties.",
-    };
+    const { id } = useParams()
+    console.log(id)
+    const { data } = useVenueDetailQuery(id)
+    console.log(data)
+    const venue = data?.venue
+
 
     return (
         <div className="max-w-4xl mx-auto mt-10 p-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                {venue.images.map((image, index) => (
+                {venue?.image?.map((image, index) => (
                     <img
                         key={index}
                         src={image}
@@ -29,19 +23,19 @@ export default function VenueDetails() {
                 ))}
             </div>
 
-            <h1 className="text-3xl font-bold mb-2">{venue.name}</h1>
+            <h1 className="text-3xl font-bold mb-2">{venue?.name}</h1>
 
             <div className="mb-6 space-y-2">
                 <p className="text-gray-600">
-                    📍 {venue.location}
+                    📍 {venue?.city},{venue?.district}
                 </p>
 
                 <p>
-                    💰 <span className="font-semibold">{venue.price}</span>
+                    💰 <span className="font-semibold">{venue?.price}</span>
                 </p>
 
                 <p>
-                    👥 {venue.capacity}
+                    👥 {venue?.capacity}
                 </p>
             </div>
 
@@ -50,7 +44,7 @@ export default function VenueDetails() {
             </h2>
 
             <p className="mb-6 text-gray-700">
-                {venue.description}
+                {venue?.description}
             </p>
 
             <h2 className="text-xl font-semibold mb-2">
@@ -58,7 +52,7 @@ export default function VenueDetails() {
             </h2>
 
             <div className="flex flex-wrap gap-3 mb-6">
-                {venue.facilities.map((item, index) => (
+                {venue?.amenities?.map((item, index) => (
                     <div
                         key={index}
                         className="border rounded-lg px-4 py-2"

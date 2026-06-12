@@ -16,7 +16,12 @@ export const api = createApi({
                 url: `${VENUE_URL}/venues`,
             }),
         }),
+        venueDetail: builder.query({
+            query: (id) => ({
+                url: `${VENUE_URL}/venue-details/${id}`,
+            }),
+        }),
     }),
 })
 
-export const { useAddVenueMutation,useListVenuesQuery } = api
+export const { useAddVenueMutation, useListVenuesQuery, useVenueDetailQuery } = api

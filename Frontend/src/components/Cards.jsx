@@ -2,10 +2,11 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useListVenuesQuery } from '../redux/api/venueApiSlice';
 import { Col, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
 
 const Cards = () => {
-
+    const navigate = useNavigate()
     const { data } = useListVenuesQuery()
     const venues = data?.venues
 
@@ -13,7 +14,7 @@ const Cards = () => {
         <>
             <Row>
                 {venues?.map((v) => (
-                    <Col>
+                    <Col key={v._id}>
                         <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src={v.image[0]} />
                             <Card.Body>
@@ -21,7 +22,7 @@ const Cards = () => {
                                 <Card.Text>
                                     {v.city},{v.district}
                                 </Card.Text>
-                                <Button variant="primary">View</Button>
+                                <Button variant="primary" onClick={()=>{navigate(`/venue-details/${v._id}`)}}>View</Button>
                             </Card.Body>
                         </Card>
                     </Col>
