@@ -19,12 +19,11 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        required: true
+        //required: true
     },
     role: {
         type: String,
-        enum: ['user','venue_owner','admin'],
-        default: 'user'
+        enum: ['user', 'owner', 'admin'],
     },
     isVerified: {
         type: Boolean,
@@ -32,4 +31,4 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model('User',userSchema);
+module.exports = mongoose.model('User', userSchema);

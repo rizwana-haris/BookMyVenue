@@ -9,6 +9,7 @@ import { Outlet } from "react-router";
 import AddCategory from "./pages/admin/AddCategory";
 import VenueLists from "./pages/user/VenueLists";
 import VenueDetails from "./pages/user/VenueDetails";
+import { ToastContainer } from "react-toastify";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +30,7 @@ function App() {
   return (
     <div>
       <Navbar />
-
+      <ToastContainer position="bottom-right" autoClose={5000} />
       <Outlet />
     </div>
   );

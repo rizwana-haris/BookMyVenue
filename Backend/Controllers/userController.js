@@ -1,48 +1,43 @@
 const User = require("../Models/userModel");
 const bcrypt = require("bcryptjs");
 const { generateToken } = require("../utils/jwt");
+const expressAsyncHandler = require("express-async-handler");
+const StatusCode = require("../statusCode");
 
 //register user
-const registerUser = async (req, res) => {
-    
-  try {
-    const { name, email, password, phone } = req.body;
+const registerUser = expressAsyncHandler(async (req, res) => {
 
-    if (!name || !email || !password || !phone) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-      phone,
-      role: "user",
-    });
-
-    const token = generateToken(user._id);
-
-    return res.status(201).json({
-      message: "User registered successfully",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-      token: token,
-    });
-
-  } catch (err) {
-    if (err.code === 11000) {
-      return res.status(400).json({ message: "Email already exists" });
-    }
-
-    res.status(500).json({ message: "Server error", error: err.message });
+  const { name, email, password, role } = req.body;
+  if (!name || !email || !password || !role) {
+    return res.status(StatusCode.BAD_REQUEST).json({ message: "All fields are required" });
   }
-};
+  const existingUser = await User.findOne({ email })
+  if (existingUser)
+    return res.status(StatusCode.BAD_REQUEST).json({ message: "Email already exists" });
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = await User.create({
+    name,
+    email,
+    password: hashedPassword,
+    role
+  });
+
+  const token = generateToken(user._id);
+
+  return res.status(StatusCode.CREATED).json({
+    message: "User registered successfully",
+    user: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
+    token: token,
+  });
+  res.status(StatusCode.INTERNAL_SERVER_ERROR).json({ message: "Server error", });
+
+})
 
 
 
@@ -63,8 +58,8 @@ const loginUser = async (req, res) => {
 
     const isMatching = await bcrypt.compare(password, user.password);
 
-    if(!isMatching){
-        return res.status(400).json({ message: "Invalid credentials" });
+    if (!isMatching) {
+      return res.status(400).json({ message: "Invalid credentials" });
     }
 
     const token = generateToken(user._id);

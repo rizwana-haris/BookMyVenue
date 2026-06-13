@@ -1,8 +1,10 @@
 import { Search } from "lucide-react";
 import Button from "./ButtonNew"
+import { useNavigate } from "react-router";
 
 export default function Navbar() {
   const isLoggedIn = false;
+  const navigate=useNavigate()
 
   const keralaDistricts = [
     "Thiruvananthapuram",
@@ -74,7 +76,7 @@ export default function Navbar() {
               Login
             </Button>
 
-            <Button buttonV="outline">
+            <Button buttonV="outline" onClick={()=>navigate('/signup')}>
               Sign Up
             </Button>
           </>
