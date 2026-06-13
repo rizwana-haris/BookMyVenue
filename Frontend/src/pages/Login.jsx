@@ -5,7 +5,6 @@ export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("customer");
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -26,33 +25,6 @@ export default function Login() {
       mb-6">
         Login
       </h1>
-      <label className="mb-2 font-semibold">
-        Select Role
-      </label>
-
-      <div className="flex gap-4">
-
-        <label>
-          <input
-            type="radio"
-            value="customer"
-            checked={role === "customer"}
-            onChange={(e) => setRole(e.target.value)}
-          />
-          Customer
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            value="owner"
-            checked={role === "owner"}
-            onChange={(e) => setRole(e.target.value)}
-          />
-          Venue Owner
-        </label>
-
-      </div>
 
       <input
         type="email"
