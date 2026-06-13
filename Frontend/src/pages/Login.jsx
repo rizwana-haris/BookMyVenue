@@ -1,22 +1,46 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import validator from "validator";
 import Button from "../components/ButtonNew";
+import { useLoginMutation } from "../redux/api/userApislice";
+import { toast } from "react-toastify";
+
 export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("customer");
+  const [errors, setErrors] = useState({})
+  const [userLogin] = useLoginMutation()
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
+
     e.preventDefault();
+    setErrors({})
+    const newErrors = findFormErrors()
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+    } else {
 
-    if (!email || !password) {
-      alert("Please fill all fields");
-      return;
-    }
+      try {
 
-    // Login API integration will be added later
+        await userLogin({ email, password }).unwrap()
+        navigate('/')
+      } catch (error) {
+        toast.error(error?.data?.message);
+      }
+    };
   };
+
+  const findFormErrors = () => {
+
+    const newErrors = {}
+    if (!validator.isEmail(email)) newErrors.email = "Enter a valid email"
+    if (!validator.isStrongPassword(password, {
+      minLength: 8, minLowercase: 1,
+      minUppercase: 1, minNumbers: 1, minSymbols: 1
+    })) newErrors.password = "Enter a valid password"
+    return newErrors
+  }
 
   return (
     <form
@@ -26,54 +50,30 @@ export default function Login() {
       mb-6">
         Login
       </h1>
-      <label className="mb-2 font-semibold">
-        Select Role
-      </label>
-
-      <div className="flex gap-4">
-
-        <label>
-          <input
-            type="radio"
-            value="customer"
-            checked={role === "customer"}
-            onChange={(e) => setRole(e.target.value)}
-          />
-          Customer
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            value="owner"
-            checked={role === "owner"}
-            onChange={(e) => setRole(e.target.value)}
-          />
-          Venue Owner
-        </label>
-
+      <div className="flex flex-col ">
+        <input
+          type="email"
+          placeholder="Enter email"
+          value={email}
+          onChange={(e) =>
+            setEmail(e.target.value)}
+          className="border p-2 rounded w-80
+        mb-4"
+        />
+        {errors.email && <p className="text-red-500 text-xs  w-80">{errors.email}</p>}
       </div>
-
-      <input
-        type="email"
-        placeholder="Enter email"
-        value={email}
-        onChange={(e) =>
-          setEmail(e.target.value)}
-        className="border p-2 rounded w-80
+      <div className="flex flex-col ">
+        <input
+          type="password"
+          value={password}
+          placeholder="Enter password"
+          onChange={(e) =>
+            setPassword(e.target.value)}
+          className="border p-2 rounded w-80
         mb-4"
-      />
-
-
-      <input
-        type="password"
-        value={password}
-        placeholder="Enter password"
-        onChange={(e) =>
-          setPassword(e.target.value)}
-        className="border p-2 rounded w-80
-        mb-4"
-      />
+        />
+        {errors.password && <p className="text-red-500 text-xs  w-80">{errors.password}</p>}
+      </div>
 
       <p className="text-sm mb-4
          text-blue-600 cursor-pointer

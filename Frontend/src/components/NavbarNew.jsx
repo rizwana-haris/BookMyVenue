@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 
 export default function Navbar() {
   const isLoggedIn = false;
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const keralaDistricts = [
     "Thiruvananthapuram",
@@ -43,7 +43,7 @@ export default function Navbar() {
       {/* Middle Section */}
       <div className="flex items-center gap-4">
 
-       
+
 
         {/* Search Bar */}
         <div className="flex items-center border border-[#E5E5E5] rounded-xl px-3 py-2 w-120">
@@ -72,11 +72,11 @@ export default function Navbar() {
 
         {!isLoggedIn ? (
           <>
-            <Button buttonV="primary">
+            <Button buttonV="primary" onClick={() => navigate('/login')}>
               Login
             </Button>
 
-            <Button buttonV="outline" onClick={()=>navigate('/signup')}>
+            <Button buttonV="outline" onClick={() => navigate('/signup')}>
               Sign Up
             </Button>
           </>
