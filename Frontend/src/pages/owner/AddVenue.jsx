@@ -1,12 +1,14 @@
 
 import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Col } from 'react-bootstrap';
 import { useAddVenueMutation } from '../../redux/api/venueApiSlice';
 import { toast } from 'react-toastify';
 import { useListCategoriesQuery } from '../../redux/api/categoryApiSlice';
 
 const AddVenue = () => {
-
+     
+    const navigate = useNavigate();
     const [errors, setErrors] = useState({})
     const [name, setName] = useState("")
     const [description, setDescription] = useState('')
@@ -90,6 +92,7 @@ const AddVenue = () => {
                 }
                 await addVenue(data).unwrap()
                 toast.success("venue added successfully");
+                navigate("/owner/my-venues")
 
             } catch (error) {
                 toast.error(error?.data?.message || `error`);
@@ -119,11 +122,14 @@ const AddVenue = () => {
     }
 
     return (
-        <>
-            <div>AddVenue</div>
-            <div className='App d-flex flex-column align-items-center'>
-                <h1>Add Venue</h1>
-                <Form style={{ width: '300px' }} onSubmit={handleSubmit}>
+        <div className="max-w-6xl mx-auto p-4 space-y-6">
+
+            <div className="w-full">
+                <h1 className="text-3xl font-bold mb-6 text-gray-900">Add Venue</h1>
+                <Form style={{ maxWidth: '700px', width: '100%' }} onSubmit={handleSubmit}>
+                    <h3 className="text-xl font-semibold mt-4 mb-3">
+                        Basic Details
+                    </h3>
                     <Form.Group>
                         <Form.Label>Name</Form.Label>
                         <Form.Control type='text' value={name}
@@ -184,16 +190,39 @@ const AddVenue = () => {
                         </Form.Control.Feedback>
                     </Form.Group>
                     <br />
-                    <input
-                        type="file"
-                        name='image'
-                        onChange={selectFilesHandler}
-                        accept="image/*"
-                        multiple="multiple"
-                    />
+                    <h3 className="text-xl font-semibold mt-6 mb-3">
+                        Images
+                    </h3>
+                    <Form.Group className="mb-4">
+
+                        <Form.Label>
+
+                            Upload Venue Images
+
+                        </Form.Label>
+
+                        <Form.Control
+                            type="file"
+                            name="image"
+                            multiple
+                            accept="image/*"
+                            onChange={selectFilesHandler}
+                        />
+
+                        <Form.Text>
+
+                            {imagesState.length > 0
+                                ? `${imagesState.length} image(s) selected`
+                                : "You can select multiple images"}
+
+                        </Form.Text>
+
+                    </Form.Group>
                     <p className="text-danger">{errors.imagesState}</p>
 
-
+                    <h3 className="text-xl font-semibold mt-6 mb-3">
+                        Amenities
+                    </h3>
                     <div className="row">
                         <div className="col-md-6">
                             <div className="form-check m-3">
@@ -347,6 +376,9 @@ const AddVenue = () => {
                     </div>
 
                     <Form.Group>
+                        <h3 className="text-xl font-semibold mt-6 mb-3">
+                            Location
+                        </h3>
                         <Form.Label>City</Form.Label>
                         <Form.Control type='text' value={city}
                             onChange={(e) => setCity(e.target.value)} isInvalid={!!errors.city} />
@@ -386,7 +418,7 @@ const AddVenue = () => {
                             {errors.longitude}
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="mb-5">
                         <Form.Label>Latitude</Form.Label>
                         <Form.Control type='number' value={latitude}
                             onChange={(e) => setLatitude(e.target.value)} isInvalid={!!errors.latitude} />
@@ -395,10 +427,27 @@ const AddVenue = () => {
                         </Form.Control.Feedback>
                     </Form.Group>
 
-                    <Button className='bg-primary my-5 text-light' type='submit'>Submit</Button>
+                    <Button
+                        variant="dark"
+                        className="                       
+                        px-5
+                        py-3
+                        rounded-lg
+                        mt-8
+                        mb-5
+                        hover:bg-black
+                        "
+                        type="submit"
+                    >
+
+                        {isloading
+                            ? "Saving..."
+                            : "Save Venue"}
+
+                    </Button>
                 </Form>
             </div>
-        </>
+        </div>
     )
 }
 

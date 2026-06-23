@@ -5,7 +5,11 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import AddVenue from "./pages/owner/AddVenue";
-import { Outlet } from "react-router";
+import OwnerLayout from "./pages/owner/layout/OwnerLayout";
+import MyVenues from "./pages/owner/MyVenues";
+import Bookings from "./pages/owner/Bookings";
+import Earnings from "./pages/owner/Earnings";
+import { Outlet } from "react-router-dom";
 import AddCategory from "./pages/admin/AddCategory";
 import VenueLists from "./pages/user/VenueLists";
 import VenueDetails from "./pages/user/VenueDetails";
@@ -23,6 +27,13 @@ export const router = createBrowserRouter(
       <Route path="category/add" element={<AddCategory />} />
       <Route path="venues" element={<VenueLists />} />
       <Route path="venue-details/:id" element={<VenueDetails />} />
+
+      <Route path="owner" element={<OwnerLayout />}>
+       <Route path="my-venues" element={<MyVenues />} />
+       <Route path="add-venue" element={<AddVenue />} />
+       <Route path="bookings" element={<Bookings />} />
+       <Route path="earnings" element={<Earnings />} />
+      </Route>
 
     </Route >
   ));

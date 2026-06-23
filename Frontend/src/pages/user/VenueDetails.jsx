@@ -1,9 +1,10 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate  } from "react-router-dom";
 import Button from "../../components/ButtonNew";
 import { useVenueDetailQuery } from "../../redux/api/venueApiSlice";
 
 export default function VenueDetails() {
     const { id } = useParams()
+    const navigate = userParams()
     console.log(id)
     const { data } = useVenueDetailQuery(id)
     console.log(data)
@@ -63,7 +64,9 @@ export default function VenueDetails() {
             </div>
 
             <div className="mt-8 flex justify-center">
-                <Button buttonV="primary">
+                <Button buttonV="primary"
+                onClick={() => navigate("/booking")}
+                >
                     Book Now
                 </Button>
             </div>
